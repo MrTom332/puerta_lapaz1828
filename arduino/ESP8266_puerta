@@ -1,0 +1,66 @@
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+
+const byte doorInterruptPin = 16;
+bool doorOpen = false;
+
+void setup() {
+  pinMode(doorInterruptPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    Connect();
+    return;
+  }
+
+  if (digitalRead(doorInterruptPin) == LOW && !doorOpen)
+  {
+    DoorOpen();
+    
+    doorOpen = true;
+    delay(1000);
+    return;
+  }
+  else if (digitalRead(doorInterruptPin) == HIGH && doorOpen)
+  {
+    doorOpen = false;
+    delay(1000);
+    return;
+  }
+
+  delay(100);
+}
+
+void Connect()
+{
+  String ssid = "ciudad_infestada";
+  String password = "06235741";
+
+  int count = 0;
+  int total_tries = 60;
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED && count < total_tries)
+  {
+    count++;
+    delay(500);
+    Serial.print(".");
+  }
+}
+
+void DoorOpen()
+{
+  IPAddress serverIP(192, 168, 0, 25); // dirección IP del servidor al que se quiere enviar la llamada
+  uint16_t serverPort = 9875; // puerto del servidor
+
+  WiFiClient client;
+  if (client.connect(serverIP, serverPort)) {
+    Serial.println("Connected to server");
+  } else {
+    Serial.println("Failed to connect to server");
+  }
+}

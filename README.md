@@ -1,3 +1,15 @@
+#Ver si tenes tarjeta bluetooth
+sudo hciconfig
+
+#Con bluetooth
+bluetoothctl
+
+#Ver status
+systemctl status bluetooth.service
+
+#Verificar log bluetooth
+sudo journalctl -u bluetooth.service
+
 #########################################################################
 bluetoothctl
 scan on
