@@ -1,7 +1,7 @@
 <?php
-    $dir = __DIR__;
+    $dir = __DIR__ ."/";
 
-    $json = json_decode(file_get_contents("../config.json"), true);
+    $json = json_decode(file_get_contents("$dir../config.json"), true);
     print_r($json);
     exit;
 
@@ -19,7 +19,7 @@
             $client_socket = socket_accept($server_socket);
 
             // Ejecuta el comando de Linux
-            exec("mpg321 $dir/../sonidos/$sound");
+            exec("mpg321 $dir../sonidos/$sound");
 
             // Cierra la conexión
             socket_close($client_socket);
