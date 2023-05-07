@@ -1,0 +1,11 @@
+[Unit]
+Description=Script service
+After=graphical.target bluetooth.service
+Requires=bluetooth.service
+Wants=network-online.target
+
+[Service]
+ExecStart=/home/mrtom/codigos_pruebas/puerta_lapaz1828/connect_alexa.sh
+
+[Install]
+WantedBy=multi-user.target
