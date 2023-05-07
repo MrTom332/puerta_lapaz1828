@@ -28,7 +28,7 @@
             $client_socket = socket_accept($server_socket);
 
             // Ejecuta el comando de Linux
-            exec("mpg321 $dir../sonidos/$sound");
+            exec("mpg321 $dir/../sonidos/$sound");
 
             // Cierra la conexión
             socket_close($client_socket);
