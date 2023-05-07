@@ -1,18 +1,9 @@
 <?php
     $dir = __DIR__;
 
-    $sound = "new_area.mp3";
-    if (count($argv) > 1)
-    {
-        for ($i=1; $i < count($argv); $i++)
-        { 
-            $partes = explode("=", $argv[$i]);
-            if ($partes[0] == "sound")
-            {
-                $sound = $partes[1];
-            }
-        }
-    }
+    $json = json_decode(file_get_contents("../config.json"), true);
+    print_r($json);
+    exit;
 
     // Crea un socket del servidor en el puerto 9875
     $server_socket = socket_create(AF_INET, SOCK_STREAM, 0);
